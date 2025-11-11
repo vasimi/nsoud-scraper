@@ -9,6 +9,9 @@ on:
 jobs:
   run-node-script:
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
 
     steps:
       - name: Checkout repository
