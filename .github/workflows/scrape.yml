@@ -1,0 +1,30 @@
+name: Daily Node Script
+
+# Schedule to run every day at 7:00 UTC
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch: # allows manual triggering
+
+jobs:
+  run-node-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '24' # or whichever version you need
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run script
+        run: node index.js
+
