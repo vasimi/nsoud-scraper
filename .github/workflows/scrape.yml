@@ -1,4 +1,4 @@
-name: Daily Node Script
+name: Daily Scrape
 
 # Schedule to run every day at 7:00 UTC
 on:
@@ -24,6 +24,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Install playwright
+        run: pnpm dlx playwright install
 
       - name: Run script
         run: node index.js
