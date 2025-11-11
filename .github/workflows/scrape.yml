@@ -12,15 +12,18 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: '24' # or whichever version you need
-
-      - name: Install pnpm
-        run: npm install -g pnpm
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -31,10 +34,15 @@ jobs:
       - name: Run script
         run: node index.js
 
+      - name: Prepare Pages artifact
+        run: |
+          mkdir -p public
+          cp result.txt public/
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: result.txt
+          path: public
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
