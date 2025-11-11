@@ -31,3 +31,9 @@ jobs:
       - name: Run script
         run: node index.js
 
+      - name: Upload scraped file as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: scraped-data
+          path: result.txt
+
