@@ -24,12 +24,8 @@ const fs = require('fs');
   await page.fill('#declarationFrom', dateValue);
   await page.fill('#declarationTo', dateValue);
 
-  // --- Submit the form ---
-  await Promise.all([
-    page.click('form input[type=submit]'), // Adjust selector if needed
-    page.waitForLoadState('networkidle')
-  ]);
-
+  await page.getByRole('button', { name: 'Hledat' }).click();
+  await page.waitForURL(/.*cHash.*/);
   // --- Wait for table to appear ---
   await page.waitForSelector('table');
 
